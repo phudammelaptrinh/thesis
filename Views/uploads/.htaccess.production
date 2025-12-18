@@ -1,0 +1,36 @@
+# ========================================
+# PRODUCTION MODE - SECURITY ENABLED
+# ========================================
+
+# Ngăn chặn thực thi file PHP trong thư mục uploads
+<FilesMatch "\.(php|php3|php4|php5|phtml|pl|py|jsp|asp|sh|cgi)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Chỉ cho phép download các file được phép
+<FilesMatch "\.(jpg|jpeg|png|gif|pdf|doc|docx|txt|webp)$">
+    Order Deny,Allow
+    Allow from all
+</FilesMatch>
+
+# Tắt tính năng index directory
+Options -Indexes
+
+# Ngăn chặn truy cập file .htaccess
+<Files .htaccess>
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Bảo vệ chống directory traversal
+RewriteEngine On
+RewriteCond %{THE_REQUEST} \.\./
+RewriteRule .* - [F]
+
+# Header bảo mật
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>

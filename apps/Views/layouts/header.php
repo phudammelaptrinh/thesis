@@ -11,7 +11,10 @@ if (!defined('BASE_URL')) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taskbb - Sự ưu tiên của bạn</title>
     <link rel="icon" type="image/png" href="<?= asset('logo/logo.png') ?>">
-    <script>window.APP_BASE_URL = '<?= BASE_URL ?>';</script>
+    <script>
+        window.BASE_URL = '<?= BASE_URL ?>';
+        window.APP_BASE_URL = '<?= BASE_URL ?>'; // Alias
+    </script>
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 

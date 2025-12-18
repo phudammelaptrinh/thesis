@@ -15,3 +15,4 @@ function asset(path) {
 window.url = url;
 window.asset = asset;
 window.BASE_URL = BASE_URL;
+window.APP_BASE_URL = BASE_URL; // Alias để tương thích ngược

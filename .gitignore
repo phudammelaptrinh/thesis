@@ -14,14 +14,11 @@ export_database_full.php
 export_database.bat
 DEPLOYMENT_CHECKLIST.php
 
-# Uploads
-public/uploads/*
-!public/uploads/.gitkeep
-!public/uploads/avatars/
-!public/uploads/reports/
-!public/uploads/tasks/
-Views/uploads/*
-!Views/uploads/.gitkeep
+# Uploads - GIỮ TẤT CẢ FILE (không ignore)
+# public/uploads/*
+# !public/uploads/.gitkeep
+# Views/uploads/*
+# !Views/uploads/.gitkeep
 
 # IDE
 .vscode/

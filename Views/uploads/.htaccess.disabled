@@ -1,0 +1,23 @@
+# ========================================
+# PRODUCTION MODE - MAXIMUM SECURITY
+# ========================================
+
+# VÔ HIỆU HÓA PHP EXECUTION
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .phps .cgi .pl .py .jsp .asp .aspx .shtml .sh
+
+# CHẶN THỰC THI PHP
+<FilesMatch "\.(php|php3|php4|php5|php7|phtml|phps|pl|py|jsp|asp|aspx|sh|cgi|shtml)$">
+    Require all denied
+</FilesMatch>
+
+# CHO PHÉP TẤT CẢ CÁC FILE KHÁC
+<RequireAll>
+    Require all granted
+</RequireAll>
+
+# BẢO MẬT
+Options -Indexes -ExecCGI

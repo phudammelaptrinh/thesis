@@ -47,17 +47,27 @@ function getBaseUrl()
     $host = $_SERVER['HTTP_HOST'];
 
     // Lấy đường dẫn thư mục chứa project
-    $scriptName = $_SERVER['SCRIPT_NAME'];
+    $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
 
-    // Tìm base directory bằng cách loại bỏ phần sau /public hoặc /apps
+    // Tìm base directory bằng cách tính toán từ BASE_PATH
+    $basePath = str_replace('\\', '/', dirname(__DIR__));
+    $documentRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
+
+    // Nếu basePath nằm trong documentRoot, tính toán đường dẫn tương đối
     $baseDir = '';
-    if (preg_match('#^(.*?)/(?:public|apps|index\.php)#', $scriptName, $matches)) {
-        $baseDir = $matches[1];
-    } elseif (dirname($scriptName) !== '/' && dirname($scriptName) !== '\\') {
-        // Fallback: lấy thư mục chứa file
-        $parts = explode('/', trim($scriptName, '/'));
-        if (count($parts) > 1) {
-            $baseDir = '/' . $parts[0];
+    if (stripos($basePath, $documentRoot) === 0) {
+        $relativePath = substr($basePath, strlen($documentRoot));
+        $baseDir = str_replace('\\', '/', $relativePath);
+    } else {
+        // Fallback: phân tích SCRIPT_NAME
+        if (preg_match('#^(.*?)/(?:public|apps|index\.php)#', $scriptName, $matches)) {
+            $baseDir = $matches[1];
+        } elseif (dirname($scriptName) !== '/' && dirname($scriptName) !== '\\') {
+            // Fallback cuối: lấy thư mục đầu tiên
+            $parts = explode('/', trim($scriptName, '/'));
+            if (count($parts) > 1) {
+                $baseDir = '/' . $parts[0];
+            }
         }
     }
 
