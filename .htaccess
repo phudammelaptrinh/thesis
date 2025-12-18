@@ -1,0 +1,26 @@
+# ========================================
+# ROOT SECURITY CONFIGURATION
+# ========================================
+
+# Bảo mật cơ bản
+Options -Indexes
+ServerSignature Off
+DirectoryIndex index.php index.html
+
+# Ngăn chặn truy cập vào file ẩn
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bảo vệ file nhạy cảm
+<FilesMatch "(database\.php|\.env|.*\.sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Chặn truy cập trực tiếp vào thư mục config
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^config/ - [F,L]
+</IfModule>

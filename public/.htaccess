@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# Bảo mật
+Options -Indexes
+ServerSignature Off
+
+# Ngăn chặn file test
+<FilesMatch "^test_.*\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Nếu yêu cầu không phải là một file có thật
+RewriteCond %{REQUEST_FILENAME} !-f
+# Nếu yêu cầu không phải là một thư mục có thật
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Chuyển hướng tất cả đến index.php
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
